@@ -8,21 +8,6 @@
  * @version     1.0
  * @author      Bumkaka <bumkaka@yandex.ru>
  * @internal    @properties &tvs=Строка с TV вида 6-ru->5-en,6-ru->5-en ;string;6-ru->5-en
- * @internal    @events OnBeforeDocFormSave
- * @internal    @modx_category lang
- * @internal    @installset base
- */
- 
- //<?php
-/**
- * Translate plugin for Modx Evo
- * 
- * Bumkaka
- *
- * @category    plugin
- * @version     1.0
- * @author      Bumkaka <bumkaka@yandex.ru>
- * @internal    @properties &tvs=Строка с TV вида 6-ru->5-en,6-ru->5-en ;string;6-ru->5-en
  * @internal    @events OnBeforeDocFormSave,OnWebPageInit
  * @internal    @modx_category
  * @internal    @installset base
@@ -44,15 +29,15 @@ switch ($e->name) {
 		if (!empty($tmplvars[$tpl[1]][1])) continue;
 		$f = explode('-',$tpl[0]);
 		$s = explode('-',$tpl[1]);
-		
-	
+			 
+		 
 		$fields = array( 
-			'40' => 'ta',
+			'35' => 'ta',
 			'25' => 'pagetitle',
-			'37' => 'menutitla',
-			'28' => 'longtitle',
-			'34' => 'introtext',
-			'31' => 'description'
+			'33' => 'menutitla',
+			'27' => 'longtitle',
+			'31' => 'introtext',
+			'29' => 'description'
 		);
 		
 		if (empty($_POST['tv'.$f[0]])) {
@@ -72,14 +57,14 @@ switch ($e->name) {
 	
 	if (!isset($_GET['translate'])) return;
 	$MainLang = 'ru';
-	require_once $modx->config['rb_base_dir'] . "plugins/blang/lang.class.inc.php";
+	require_once $modx->config['rb_base_dir'] . "modules/blang/lang.class.inc.php";
 	$bLang = LANG::GetInstance();
 	
 	require_once $modx->config['rb_base_dir'] .'libs/resourse.php';
 	$resourse=resourse::Instance($modx);
 	
 	
-	$fields = array( 'pagetitle', 'menutitle','longtitle','introtext','description','content' ,'slide-test-1','slide-test-2','slide-test-3','slide-title-1','slide-title-2','slide-title-3');
+	$fields = array( 'pagetitle', 'menutitle','longtitle','introtext','description','content' );
 	
 	$ids = $modx->getChildIds(0);
 	$langs = $bLang->langs;
@@ -88,8 +73,10 @@ switch ($e->name) {
 	}
 	$langs = array_merge( array($MainLang) , $langs);
 	
-	
+	$i = 0 ;
 	foreach($ids as $id){
+		$i++;
+		//if ($i > 10) die();
 		$resourse->document($id)->edit($id);
 		echo '<br/>_________ ';
 		echo 'Start resourse #'.$id.'<br/>';
@@ -103,32 +90,29 @@ switch ($e->name) {
 				$default = true;
 				$current = true;
 				
+				
+				$resourse->set($field, $resourse->get($field) );
+				
+				
+				
+				
 				if ($lang == $MainLang){
 					if (is_null($d) || empty($d)) $default = false;
 					if (is_null($f) || empty($f)) $current = false;
-					
-					if ( $default && !$current ){
+					if ($default && !$current) {
 						$resourse->set($field.'_'.$lang, $resourse->get($field));
 						echo ' Set value from '.$field.'<br/>';
-					}
-					continue;
-				}
-				
-				
-				/*if ($lang =='fr') {
-						$resourse->set($field.'_'.$lang, '');
 						continue;
-				}*/
+					}
+				}
 				
 				
 				if (is_null($m) || empty($m)) $default = false;
 				if (is_null($f) || empty($f) || $f == ' ') $current = false;
-				echo $lang.'-'. $default.'/'.$current.'||';	
 				if ($default && !$current) {
-					
-					$Translate = Translate($resourse->get('pagetitle_'.$Lang),$MainLang,$lang);
+					$Translate = Translate($resourse->get($field.'_'.$MainLang),$MainLang,$lang);
 					echo 'Tanslate value  '.$field.'_'.$lang.'<br/>';
-					$resourse->set($field.'_'.$lang, $modx->db->escape($Translate) );
+					$resourse->set($field.'_'.$lang, $Translate  );
 				}
 				
 				

@@ -50,7 +50,11 @@ if ( ! class_exists( 'LANG' ) )
 			$id = $modx->documentIdentifier;
 
 			$InListLang = $this->InListLang();
-
+			
+			if (!$InListLang && !empty($_GET['lang'])) {
+				$_GET['lang'] = $this->default_lang;
+				$modx->sendErrorPage();
+			}
 			$config['lang'] = $this->lang = $InListLang ? $this->lang : $this->default_lang;
 			$config['root'] = $this->root = $InListLang ? $this->roots[$this->lang] : $this->roots[$this->default_lang];
 			

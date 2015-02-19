@@ -5,7 +5,7 @@
  * just make MODx evo is easy
  *
  * @category    plugin
- * @version     0.3
+ * @version     0.6
  * @author		Bumkaka
  * @internal    @properties;
  * @internal    @events OnLoadWebPageCache,OnLoadWebDocument
