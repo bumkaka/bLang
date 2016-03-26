@@ -82,4 +82,8 @@ $access = $modx->getTemplateVar('access_'.$lang, '*', $modx->documentIdentifier)
 if ($access['value']=='0') $this->sendForward( $modx->config['site_url'].$modx->config['_root'], 'HTTP/1.0 404 Not Found');
 
 
+/*
+* for bAuth
+*/
+$_SESSION['_root'] = $modx->config['_root'];
 
