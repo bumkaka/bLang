@@ -13,6 +13,8 @@
  */
 
 
+
+
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 ( isset($maxCrumbs) ) ? $maxCrumbs : $maxCrumbs = 100;
 ( isset($pathThruUnPub) ) ? $pathThruUnPub : $pathThruUnPub = 1;
@@ -47,9 +49,9 @@ $templates = array(
     'defaultList' => array(
         'crumb' => '<li>[+crumb+]</li>',
         'separator' => '',
-        'crumbContainer' => '<ul class="[+crumbBoxClass+]">[+crumbs+]</ul>',
-        'lastCrumbWrapper' => '<span class="[+lastCrumbClass+]">[+lastCrumbSpanA+]</span>',
-        'firstCrumbWrapper' => '<span class="[+firstCrumbClass+]">[+firstCrumbSpanA+]</span>'
+        'crumbContainer' => '<ul class="breadcrumb">[+crumbs+]</ul>',
+        'lastCrumbWrapper' => '<li class="[+lastCrumbClass+]">[+lastCrumbSpanA+]</li>',
+        'firstCrumbWrapper' => '<li class="[+firstCrumbClass+]">[+firstCrumbSpanA+]</li>'
     ),
 );
 // Return blank if necessary: on home page
@@ -251,12 +253,12 @@ foreach ( $crumbs as $c )
         }
 
 
-        $pretemplateCrumb .= '<a class="'.$crumbClass.'" href="'.($c['id'] == $modx->config['site_start'] ? $modx->config['base_url'] : $modx->makeUrl($c['id'])).'" title="'.$title.'">[[GetTVField? &id=`'.$c['id'].'` &field=`pagetitle_(lang)`]]'.$ttext.'</a>';
+        $pretemplateCrumb .= '<a class="'.$crumbClass.'" href="'.($c['id'] == $modx->config['site_start'] ? $modx->config['base_url'] : $modx->makeUrl($c['id'])).'" title="'.$title.'">[[DocInfo? &docid=`'.$c['id'].'` &field=`pagetitle_[(_lang)]`]]'.$ttext.'</a>';
     }
     else
     // Make a span instead of a link
     {
-       $pretemplateCrumb .= '<span class="'.$crumbClass.'">[[GetTVField? &id=`'.$c['id'].'` &field=`pagetitle_(lang)`]]'.$ttext.'</span>';
+       $pretemplateCrumb .= '<span class="'.$crumbClass.'">[[DocInfo? &docid=`'.$c['id'].'` &field=`pagetitle_[(_lang)]`]]'.$ttext.'</span>';
     }
 
     // Add crumb to pretemplate crumb array
@@ -268,7 +270,7 @@ foreach ( $crumbs as $c )
         if ( count($crumbs) > ($maxCrumbs + (($showHomeCrumb) ? 1 : 0)) )
         {
             // Add gap
-            $pretemplateCrumbs[] = '<span class="'.$stylePrefix.'hideCrumb'.'">[[GetTVField? &id=`'.$c['id'].'` &field=`pagetitle_(lang)`]]'.$ccrumbGap.'</span>';
+            $pretemplateCrumbs[] = '<span class="'.$stylePrefix.'hideCrumb'.'">[[DocInfo? &docid=`'.$c['id'].'` &field=`pagetitle_[(_lang)]`]]'.$ccrumbGap.'</span>';
         }
 
         // Stop here if we're not looking for the home crumb
@@ -313,4 +315,3 @@ $container = str_replace(
 
 // Return crumbs
 return $container;
-
