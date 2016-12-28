@@ -8,7 +8,7 @@
  * @version     0.6
  * @author		Bumkaka
  * @internal    @properties;
- * @internal    @events OnLoadWebPageCache,OnLoadWebDocument
+ * @internal    @events OnWebPageInit,OnLoadWebPageCache,OnLoadWebDocument
  * @internal    @modx_category BLang
  * @internal    @installset base
  */
