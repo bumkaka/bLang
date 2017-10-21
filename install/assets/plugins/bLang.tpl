@@ -118,7 +118,7 @@ $doc->edit((int) $id);
 foreach ($data as $key => $value) {
 $doc->set($key,$value);
 }
-$doc->save(false,false);
+return $doc->save(false,false);
 }
 if ($e->name == 'OnLoadWebDocument' && !crawlerDetect()) {
 $l = explode('-',$_SERVER['HTTP_ACCEPT_LANGUAGE'])	;
