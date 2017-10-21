@@ -75,3 +75,6 @@ switch
 In addition to the chunk you can save the language settings in the blang module.
 It also supports auto translation, but you have to enter the Yandex api key in its setting
 If you need other languages other than (ru,en,ua), you must add a new line to the blang table
+
+# Attention 
+ To create a table in the database you must tick Check Install / Rewrite Demo Content
