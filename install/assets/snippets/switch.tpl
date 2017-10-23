@@ -15,6 +15,7 @@
 
 $Mlang = LANG::GetInstance();
 $lang=(string)$Mlang->lang;
+if($pl) return '[+'.$pl.'_'.$lang.'+]';
 if ($name) return '[*'.$name.'_'.$lang.'*]';
 echo $$lang;
 

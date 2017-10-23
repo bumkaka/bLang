@@ -20,7 +20,7 @@ Language selecting
 ```
 <select name="countries" id="select_" onchange="window.location.href = $(this).val()">
     <option value='[(ru_url)]' [!if?is=`[(_lang)]:=:ru` &then=`selected`!]>Русский</option>
-    <option value='[(en_url])' [!if?is=`[(_lang)]:=:en` &then=`selected`!]>English</option>
+    <option value='[(en_url)]' [!if?is=`[(_lang)]:=:en` &then=`selected`!]>English</option>
 </select>
 ```
 
@@ -55,3 +55,26 @@ tpl-`MenuRowTpl`:
 </a>[+wf.wrapper+]</li>
 
 ```
+
+
+switch
+``` [[switch? &name=`pagetitle`]] ``` //if you know the name of the field
+``` [[switch? &pl=`pagetitle]] ``` //if you know the name of the placeholder
+
+##Automatic translation
+  if you need an automatic translation into other languages of the resource you should
+  1. Get the key yandex api
+  2. Open the plugin settings blang.
+  3. Set 1 in field translate
+  4. Set yandex key in field
+  You can only translate from the main language in the form.
+  To translate, simply save the document.
+  
+  
+## module bLang
+In addition to the chunk you can save the language settings in the blang module.
+It also supports auto translation, but you have to enter the Yandex api key in its setting
+If you need other languages other than (ru,en,ua), you must add a new line to the blang table
+
+# Attention 
+ To create a table in the database you must tick Check Install / Rewrite Demo Content

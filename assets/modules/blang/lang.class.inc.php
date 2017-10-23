@@ -57,7 +57,7 @@ if ( ! class_exists( 'LANG' ) )
 			}
 			$config['lang'] = $this->lang = $InListLang ? $this->lang : $this->default_lang;
 			$config['root'] = $this->root = $InListLang ? $this->roots[$this->lang] : $this->roots[$this->default_lang];
-			
+
 			foreach($this->langs as $key=>$value){
 			  
 				if ($this->MODX->config['site_start'] != $id){
@@ -66,6 +66,7 @@ if ( ! class_exists( 'LANG' ) )
 					$config[$value.'_url'] = $this->roots[$value];
 				}
 			}
+
 			
 			foreach($config as $key=>$value){
 					$this->MODX->config[ $this->prefix.$key] = $value;
@@ -78,7 +79,19 @@ if ( ! class_exists( 'LANG' ) )
 					$this->MODX->config['__'.$key] = $value;
 				}
 			}
-			
+			$table = $modx->getFullTableName('blang');
+			$sql = "select * from ".$table;
+			$q = $modx->db->query($sql);
+			$res = $modx->db->makeArray($q);
+
+            if ( !empty($res) ){
+                foreach($res as $item){
+                	$key = $item['name'];
+                	$value = $item[$config['lang']];
+
+                    $this->MODX->config['__'.$key] = $value;
+                }
+            }
 			
 			/**/
 			//$this->MODX->config['l'] = $this->lang;
